@@ -56,7 +56,7 @@ try:
     method='POST',
     headers={
       'X-Cybozu-Authorization': AUTH_TOKEN
-    },
+    }
     body=body
   )
   print(response.status)
@@ -66,6 +66,31 @@ try:
 except HTTPError as e:
   print(e.to_dict)
 ```
+### HTTP client - `simple_http_client.Client.request`
+This method requires parameters bellow.
+
+`simple_http_client.Client.request(url=None, method='GET', headers=None, body=None)`
+
+- url (required): should be string
+- method: should be string (`GET`, `POST`, `PUT`, `DELETE`, `PATCH`)
+- headers: should be dictionary
+- body: should be string, dictionary (JSON) or `FormData`
+
+### Response class
+Response class contains attributes bellow.
+- status: stauts code
+- statusText: `OK`
+- body: response body
+- headers: response headers
+- to_dict: dictionary of response body
+
+### Exception class
+Exception class contains attributes bellow.
+- status: stauts code
+- statusText: exception reason (`Bad Request`, etc.)
+- body: response body
+- headers: response headers
+- to_dict: dictionary of response body
 
 ## Usage
 - [Example Code](https://github.com/yamaryu0508/simple-http-client/tree/main/examples)
