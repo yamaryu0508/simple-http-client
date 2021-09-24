@@ -25,15 +25,14 @@ class FormData(object):
   def add_field(self, name, value):
     self.form_fields.append((name, value))
 
-  def add_file(self, fieldname, filename, fileHandle,
+  def add_file(self, fieldname, filename, filedata,
               mimetype=None, content_disposition='form-data'):
-    body = fileHandle.read()
     if mimetype is None:
       mimetype = (
         mimetypes.guess_type(filename)[0] or
         'application/octet-stream'
       )
-    self.files.append((fieldname, filename, mimetype, body, content_disposition))
+    self.files.append((fieldname, filename, mimetype, filedata, content_disposition))
     return
 
   @staticmethod
@@ -98,9 +97,13 @@ class Client(object):
     if url:
       self.url = url
 
-    self._update_headers({'User-Agent': 'simple_http_client'})
     if headers:
       self._update_headers(headers)
+
+    if 'User-Agent' not in self.headers:
+      with open('../VERSION.txt') as f:
+        version = f.read()
+      self._update_headers({'User-Agent': 'simple_http_client/v{}'.format(version)})
 
     if body is None:
       data = None

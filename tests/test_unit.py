@@ -113,8 +113,10 @@ class TestClient(unittest.TestCase):
 
     form = FormData()
     form.add_file(
-      'file', 'test.txt',
-      fileHandle=io.BytesIO(b'Hello!'))
+      'file',
+      'test.txt',
+      filedata=io.BytesIO(b'Hello!').read()
+    )
     mock_client = MockClient()
     mock_urlopen.side_effect = mock_client._urlopen
 
