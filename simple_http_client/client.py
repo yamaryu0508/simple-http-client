@@ -128,7 +128,8 @@ class Client(object):
     if data:
       logger.debug('Payload: {}'.format(data))
 
-    response = Response(self._urlopen(self.url, data, headers=self.headers, method=self.method))
+    with self._urlopen(self.url, data, headers=self.headers, method=self.method) as r:
+      response = Response(r)
 
     logger.debug('{} Response: {} {}'.format(method, response.status, response.body))
 
