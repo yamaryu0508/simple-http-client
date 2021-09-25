@@ -1,7 +1,7 @@
 import io
 import unittest
-import urllib
 from unittest import mock
+import urllib
 
 from simple_http_client import Client, FormData
 

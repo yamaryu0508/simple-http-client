@@ -4,3 +4,4 @@ from .exceptions import (
   URLError
 )
 from .response import Response
+from .version import __version__

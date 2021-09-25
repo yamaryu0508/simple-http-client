@@ -4,8 +4,9 @@ from setuptools import setup, find_packages
 with open('README.md') as f:
   readme = f.read()
 
-with open('VERSION.txt') as f:
-  version = f.read()
+__version__=None
+with open('simple_http_client/version.py') as f:
+  exec(f.read())
 
 with open('LICENSE') as f:
   license = f.read()
@@ -19,7 +20,7 @@ def read_requirements():
 
 setup(
   name='simple_http_client',
-  version=version,
+  version=__version__,
   description='Simple HTTP REST client for Python',
   long_description_content_type='text/markdown',
   long_description=readme,

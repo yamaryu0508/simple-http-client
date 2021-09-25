@@ -8,6 +8,7 @@ import uuid
 
 from .exceptions import handle_error
 from .response import Response
+from .version import __version__
 
 logger = logging.getLogger(__name__)
 
@@ -77,6 +78,7 @@ class Client(object):
     self.url = url
     self.headers = headers or {}
     self.method = 'GET'
+    self.version = __version__
 
   def _update_headers(self, headers):
     self.headers.update(headers)
@@ -101,9 +103,7 @@ class Client(object):
       self._update_headers(headers)
 
     if 'User-Agent' not in self.headers:
-      with open('../VERSION.txt') as f:
-        version = f.read()
-      self._update_headers({'User-Agent': 'simple_http_client/v{}'.format(version)})
+      self._update_headers({'User-Agent': 'simple_http_client/{};python'.format(self.version)})
 
     if body is None:
       data = None
